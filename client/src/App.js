@@ -1,18 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Customers from "./components/Customers";
+import {Styled} from '../src/App.styled'
+import Customers from "./components/RenderResults";
+import Input from "./components/Input";
+import InputText from "./components/Input/InputText";
 
+
+const {MainWrapper, HeaderWrapper, BodyWrapper, HeaderInner, Title, WrapperInput} = Styled
 
 const App = () => {
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <h1 className="App-title">React Express Starter</h1>
-            </header>
-            <Customers />
-        </div>
+        <MainWrapper>
+            <HeaderWrapper>
+                <HeaderInner>
+                    <Title>Парсинг выдачи по поиску</Title>
+                    <img style={{width: '130px', paddingLeft: '10px'}} src={`${process.env.PUBLIC_URL}logo.png`}
+                         alt=""/>
+                    <WrapperInput>
+                        <Input/>
+                    </WrapperInput>
+                </HeaderInner>
+
+            </HeaderWrapper>
+            <BodyWrapper>
+                <Customers/>
+            </BodyWrapper>
+
+        </MainWrapper>
     )
 }
 export default App
