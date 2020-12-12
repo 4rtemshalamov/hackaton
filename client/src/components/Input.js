@@ -9,6 +9,7 @@ const Input = () => {
         responseToPost: '',
     })
     const handleSubmit = async (e) => {
+        globalActions.actions.loadingActions(true)
         e.preventDefault();
         const response = await fetch('/api/search', {
             method: 'POST',
@@ -20,6 +21,7 @@ const Input = () => {
         const body = await response.json();
         setState({ responseToPost: body });
         globalActions.actions.responseActions(body)
+
     };
 
 

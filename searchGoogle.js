@@ -183,7 +183,7 @@ const searchGoogle = async (searchQuery) => {
                     const url = result.querySelector('div[class=rc] > div[class=yuRUbf] > a').href;
 
                     //Target the description
-                    const desciption = result.querySelector('div[class=rc] > div[class=IsZvec] > div > span[class=aCOpRe]').innerText;
+                    const description = result.querySelector('div[class=rc] > div[class=IsZvec] > div > span[class=aCOpRe]').innerText;
 
                     //Add to the return Array
                     data.push({title, description, url});
@@ -209,4 +209,3 @@ const searchGoogle = async (searchQuery) => {
 
 //Exports the function so we can access it in our server
 module.exports = searchGoogle;
-
