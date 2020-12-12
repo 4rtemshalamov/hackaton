@@ -201,6 +201,7 @@ const searchGoogle = async (searchQuery) => {
         }
         currentPage++
     }
+    await page.screenshot({path: 'example.png'});
 
     return array
 

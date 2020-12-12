@@ -12,7 +12,7 @@ const HeaderWrapper = styled.div`
   background-color: #15202b;
 `
 const BodyWrapper = styled.div`
-  width: 1000px;
+  width: auto;
   height: 1000px;
   background-color: white;
 `
