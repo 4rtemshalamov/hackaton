@@ -137,7 +137,7 @@
 const puppeteer = require('puppeteer');
 
 const searchGoogle = async (searchQuery) => {
-    const browser = await puppeteer.launch({headless: false});
+    const browser = await puppeteer.launch({headless: true});
 
     const page = await browser.newPage();
     await page.goto('https://google.com');
@@ -150,7 +150,7 @@ const searchGoogle = async (searchQuery) => {
     await page.waitForSelector('div[id=search]');
     let array = []
     let currentPage = 1
-    let i = 14
+    let i = 10
     while (currentPage <= i) {
         //Find all div elements with class 'bkWMgd'
         const searchResults = await page.$$eval('div[id=rso]', results => {
@@ -160,7 +160,6 @@ const searchGoogle = async (searchQuery) => {
             results.forEach(parent => {
                 //Check if parent has h2 with text 'Web Results'
                 const ele = parent.querySelector('h2');
-                console.log(ele)
                 // If element with 'Web Results' Title is not found  then continue to next element
                 if (ele === null) {
                     return;
@@ -187,11 +186,10 @@ const searchGoogle = async (searchQuery) => {
                     const desciption = result.querySelector('div[class=rc] > div[class=IsZvec] > div > span[class=aCOpRe]').innerText;
 
                     //Add to the return Array
-                    data.push({title, desciption, url});
+                    data.push({title, description, url});
                 });
             });
             //Return the search results
-            console.log(data)
             return data;
         });
         array = array.concat(searchResults)
@@ -202,13 +200,8 @@ const searchGoogle = async (searchQuery) => {
             ])
         }
         currentPage++
-        // console.log(searchResults)
-        // return searchResults;
     }
 
-    // await page.screenshot({path: 'example.png'});
-    // await browser.close();
-    console.log(array)
     return array
 
 
@@ -217,45 +210,3 @@ const searchGoogle = async (searchQuery) => {
 //Exports the function so we can access it in our server
 module.exports = searchGoogle;
 
-// searchGoogle('кот');
-// const puppeteer = require('puppeteer');
-// function run (pagesToScrape) {
-//     return new Promise(async (resolve, reject) => {
-//         try {
-//             if (!pagesToScrape) {
-//                 pagesToScrape = 1;
-//             }
-//             const browser = await puppeteer.launch();
-//             const page = await browser.newPage();
-//             await page.goto("https://news.ycombinator.com/");
-//             let currentPage = 1;
-//             let urls = [];
-//             while (currentPage <= pagesToScrape) {
-//                 let newUrls = await page.evaluate(() => {
-//                     let results = [];
-//                     let items = document.querySelectorAll('a.storylink');
-//                     items.forEach((item) => {
-//                         results.push({
-//                             url:  item.getAttribute('href'),
-//                             text: item.innerText,
-//                         });
-//                     });
-//                     return results;
-//                 });
-//                 urls = urls.concat(newUrls);
-//                 if (currentPage < pagesToScrape) {
-//                     await Promise.all([
-//                         await page.click('a.morelink'),
-//                         await page.waitForSelector('a.storylink')
-//                     ])
-//                 }
-//                 currentPage++;
-//             }
-//             browser.close();
-//             return resolve(urls);
-//         } catch (e) {
-//             return reject(e);
-//         }
-//     })
-// }
-// run(5).then(console.log).catch(console.error);

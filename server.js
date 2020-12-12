@@ -1,32 +1,31 @@
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = 5000;
 
 //Import puppeteer function
 const searchGoogle = require('./searchGoogle');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //Catches requests made to localhost:3000/search
-app.get('/search', (request, response) => {
+app.get('/api/search',cors(), async (request, response) => {
 
-    //Holds value of the query param 'searchquery'.
-    const searchQuery = request.query.searchquery;
+    // const data = await searchGoogle('кот')
+    // response.send(data);
 
-    //Do something when the searchQuery is not null.
-    if (searchQuery != null) {
-
-        searchGoogle(searchQuery)
-            .then(results => {
-                //Returns a 200 Status OK with Results JSON back to the client.
-                response.status(200)
-                response.json(results)
-            });
-    } else {
-        response.end();
-    }
 });
-
-//Catches requests made to localhost:3000/
-app.get('/', (req, res) => res.send('Hello World!'));
+app.post('/api/search', async (req, res) => {
+    const dataValue = req.body.post
+    console.log(dataValue)
+    const data = await searchGoogle(dataValue)
+    console.log(data)
+    res.send(data);
+    res.send(
+        `I received your POST request. This is what you sent me: ${req.body.post}`,
+    );
+});
 
 
 //Initialises the express server on the port 30000
