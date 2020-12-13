@@ -24,8 +24,10 @@ const Input = () => {
         const body = await response.json();
         setState({responseToPost: body});
         globalActions.actions.responseActions(body)
-
     };
+
+
+
 
 
     return (
@@ -36,6 +38,7 @@ const Input = () => {
                        value={state.post}
                        onChange={(e) => setState({post: e.target.value})}/>
             </MainWrapper>
+
         </form>
 
     )

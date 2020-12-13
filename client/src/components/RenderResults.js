@@ -31,7 +31,7 @@ const RenderResults = () => {
     }
 
     return (
-        <div className="ag-theme-alpine" style={{height: 500, width: "auto"}}>
+        <div className="ag-theme-alpine" style={{height: 500, width: "auto", padding: '0 20% 0 20%'}}>
             {loading ? <Circular/> :
                 <AgGridReact
                     onGridReady={onGridReady}

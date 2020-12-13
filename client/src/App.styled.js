@@ -35,6 +35,8 @@ const WrapperInput = styled.div`
   padding-top: 20px;
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
 `
 
 export const Styled = {MainWrapper, HeaderWrapper, BodyWrapper, HeaderInner, Title, WrapperInput};
