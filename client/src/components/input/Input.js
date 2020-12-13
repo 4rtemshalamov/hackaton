@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import useGlobal from "../store";
+import useGlobal from "../../store";
 import {Styled} from './input.styled'
 
 const {MainWrapper} = Styled

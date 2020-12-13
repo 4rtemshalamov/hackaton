@@ -1,7 +1,7 @@
 import React from 'react';
 import {Styled} from '../src/App.styled'
-import Customers from "./components/RenderResults";
-import Input from "./components/Input";
+import RenderResults from "./components/RenderResults";
+import Input from "./components/input/Input";
 import Button from "./components/button/Button";
 import useGlobal from "./store";
 
@@ -9,7 +9,7 @@ import useGlobal from "./store";
 const {MainWrapper, HeaderWrapper, BodyWrapper, HeaderInner, Title, WrapperInput} = Styled
 
 const App = () => {
-    const [globalState, globalActions] = useGlobal();
+    const [globalState] = useGlobal();
     const {response} = globalState
     return (
         <MainWrapper>
@@ -28,7 +28,7 @@ const App = () => {
                 </HeaderInner>
             </HeaderWrapper>
             <BodyWrapper>
-                <Customers/>
+                <RenderResults/>
             </BodyWrapper>
 
         </MainWrapper>

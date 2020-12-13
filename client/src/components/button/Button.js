@@ -1,21 +1,12 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import useGlobal from "../../store";
 import {Styled} from './Button.styled'
 
 const {MainButton} = Styled
 
 const Button = () => {
-    const [globalState, globalActions] = useGlobal();
-    const [disabled, setDisabled] = useState(true)
-
+    const [globalState] = useGlobal();
     const {response} = globalState
-
-
-    // useEffect(() => {
-    //     if (response?.length){
-    //         setDisabled(true)
-    //     }
-    // },)
 
     const handleSubmit = () => {
         if (response?.length) {
@@ -29,7 +20,7 @@ const Button = () => {
 
 
     return(
-        <MainButton value={'скачать'} onClick={handleSubmit}>Скачать в JSON</MainButton>
+        <MainButton onClick={handleSubmit}>Скачать в JSON</MainButton>
     )
 }
 
