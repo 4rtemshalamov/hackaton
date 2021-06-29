@@ -2,7 +2,6 @@ const puppeteer = require('puppeteer');
 
 const searchGoogle = async (searchQuery) => {
     const browser = await puppeteer.launch({headless: true});
-
     const page = await browser.newPage();
     await page.goto('https://google.com');
 
@@ -14,12 +13,13 @@ const searchGoogle = async (searchQuery) => {
     await page.waitForSelector('div[id=search]');
     let array = []
     let currentPage = 1
-    let i = 10
+    let i = 1
     while (currentPage <= i) {
         //Find all div elements with class 'bkWMgd'
         const searchResults = await page.$$eval('div[id=rso]', results => {
             //Array to hold all our results
-            let data = [];
+            let links = [];
+            console.log(links)
             //Iterate over all the results
             results.forEach(parent => {
                 //Check if parent has h2 with text 'Web Results'
@@ -41,20 +41,22 @@ const searchGoogle = async (searchQuery) => {
                 //Iterate over all the divs with class 'g'
                 gCount.forEach(result => {
                     //Target the title
-                    const title = result.querySelector('div[class=rc] > div[class=yuRUbf] > a >  h3').innerText;
+                    // const title = result.querySelector('div[class=rcnt] > div[class=r] > a >  h3').innerText;
 
                     //Target the url
-                    const url = result.querySelector('div[class=rc] > div[class=yuRUbf] > a').href;
+                    // const url = result.querySelector('div[class=rc] > div[class=yuRUbf] > a').href;
+                    const url = result.querySelector('div[class=tF2Cxc] > div[class=yuRUbf] > a').href;
+
 
                     //Target the description
-                    const description = result.querySelector('div[class=rc] > div[class=IsZvec] > div > span[class=aCOpRe]').innerText;
+                    // const description = result.querySelector('div[class=rcnt] > div[class=s] > div > span[class=st]').innerText;
 
                     //Add to the return Array
-                    data.push({title, description, url});
+                    links.push({url});
                 });
             });
             //Return the search results
-            return data;
+            return links;
         });
         array = array.concat(searchResults)
         if (currentPage < i){
@@ -70,7 +72,12 @@ const searchGoogle = async (searchQuery) => {
     return array
 
 
+
+
 };
+
+
+
 
 //Exports the function so we can access it in our server
 module.exports = searchGoogle;
